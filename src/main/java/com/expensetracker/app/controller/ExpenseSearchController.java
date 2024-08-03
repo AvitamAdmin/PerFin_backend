@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,14 +22,14 @@ public class ExpenseSearchController {
 	@Autowired
 	RecordSearchService recordSearchService;
 
-	@GetMapping("/{startDate}")
+	@PostMapping("/{startDate}")
 	@ResponseBody
 	public ArrayList<UserTotalExpenseData> searchCurrentDayRecords(@PathVariable String startDate) throws ParseException {
 		return recordSearchService.searchCurrentDayExpenses(startDate);
 
 	}
 	
-	@GetMapping("/{startDate}/{endDate}")
+	@PostMapping("/{startDate}/{endDate}")
 	@ResponseBody
 	public ArrayList<UserTotalExpenseData> searchRecordsForTheInterval(@PathVariable String startDate,@PathVariable String endDate){
 		return recordSearchService.searchExpensesForThePeriod(startDate, endDate);

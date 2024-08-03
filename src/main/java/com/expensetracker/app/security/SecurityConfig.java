@@ -34,8 +34,8 @@ public class SecurityConfig {
 //		return http.csrf().disable().authorizeHttpRequests().requestMatchers("/register", "/login")
 //				.permitAll().requestMatchers("/create","/expense/**","/download/**","/searchExpenses/**","/income").authenticated().and()
 //				.formLogin().and().build();
-		return http.csrf().disable().authorizeHttpRequests().requestMatchers("/","/register", "/login","/expense/**").permitAll()
-				.requestMatchers("/create","/download/**", "/searchExpenses/**", "/income")
+		return http.csrf().disable().authorizeHttpRequests().requestMatchers("/","/register", "/login").permitAll()
+				.requestMatchers("/create","/download/**", "/searchExpenses/**", "/income","/expense/**")
 				.authenticated().and().formLogin().and().build();
 //				
 	}
