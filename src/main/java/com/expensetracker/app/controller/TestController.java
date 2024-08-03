@@ -17,6 +17,6 @@ public class TestController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		UserInfoUserDetails user =  (UserInfoUserDetails) auth.getPrincipal();
 		System.out.println(user.getEmail());
-		return "testHome-vignesheh-commit";
+		return "testHome-vignesh-commit";
 	}
 }
