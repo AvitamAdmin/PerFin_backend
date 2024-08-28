@@ -16,12 +16,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "user")
-public class UserData  //implements UserDetails
+public class UserData // implements UserDetails
 {
 	/**
 	 * 
@@ -29,7 +32,7 @@ public class UserData  //implements UserDetails
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="id")
+	@Column(name = "id")
 	int id;
 	@Column(name = "first_name")
 	private String firstName;
@@ -39,8 +42,10 @@ public class UserData  //implements UserDetails
 	private String email;
 	@Column(name = "password")
 	private String password;
-	@Column(name="role")
+	@Column(name = "role")
 	private String roles;
+	@ManyToOne
+	private CurrencyData currency;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userData")
 	private List<UserTotalExpenseData> userTotalExpenseDatum;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "userData")
@@ -51,8 +56,9 @@ public class UserData  //implements UserDetails
 	private List<UserExpenseCategoryWiseData> userIncomeCategoryWiseDatum;
 
 	public UserData() {
-		
+
 	}
+
 	public UserData(int id, String firstName, String lastName, String email, String password) {
 		super();
 		this.id = id;
@@ -105,9 +111,19 @@ public class UserData  //implements UserDetails
 	public String getRoles() {
 		return roles;
 	}
+
 	public void setRoles(String roles) {
 		this.roles = roles;
 	}
+
+	public CurrencyData getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(CurrencyData currency) {
+		this.currency = currency;
+	}
+
 	public List<UserTotalExpenseData> getUserTotalExpenseDatum() {
 		return userTotalExpenseDatum;
 	}
@@ -139,5 +155,5 @@ public class UserData  //implements UserDetails
 	public void setUserIncomeCategoryWiseDatum(List<UserExpenseCategoryWiseData> userIncomeCategoryWiseDatum) {
 		this.userIncomeCategoryWiseDatum = userIncomeCategoryWiseDatum;
 	}
-	
+
 }

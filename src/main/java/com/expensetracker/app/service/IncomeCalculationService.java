@@ -25,14 +25,12 @@ public class IncomeCalculationService {
 	UserTotalIncomeData userTotalIncomeData;
 	UserIncomeCategoryWiseData userIncomeCategoryWiseData;
 
-	public void calculateTotalIncome(String category, double amount) {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		UserInfoUserDetails user = (UserInfoUserDetails) auth.getPrincipal();
+	public void calculateTotalIncome(String category, double amount, String user) {
 		this.userTotalIncomeData.setCategory(category);
 		this.userTotalIncomeData.setAmount(amount);
 		this.userTotalIncomeData.setDate(LocalDate.now());
 		this.userTotalIncomeData.setIncomeCategoryData(incomeCategoryRepository.findByIncomeCategory(category));
-		this.userTotalIncomeData.setUserData(userRepository.findByEmail("hari@avitam.in"));
+		this.userTotalIncomeData.setUserData(userRepository.findByEmail(user));
 		// this.userTotalIncomeData.setUserData(userRepository.findByEmail(user.getEmail()));
 		modifyTotalIncomeDataRepository.save(userTotalIncomeData);
 

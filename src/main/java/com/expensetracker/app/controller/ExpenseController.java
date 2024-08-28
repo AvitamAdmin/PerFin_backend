@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.expensetracker.app.dao.ExpenseCategoryRepository;
+import com.expensetracker.app.dto.UserInfoUserDetails;
 import com.expensetracker.app.service.ExpenseCalculationService;
 
 @RestController
@@ -28,9 +29,9 @@ public class ExpenseController {
 	@ResponseBody
 	public void expense(@RequestParam String category,@RequestParam Double amount) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		Object user = auth.getPrincipal();
+		UserInfoUserDetails user = (UserInfoUserDetails) auth.getPrincipal();
 		System.out.println(user);
-		expenseCalculationService.calculateTotalExpense(category,amount);
+		expenseCalculationService.calculateTotalExpense(category,amount,user.getEmail());
 	}
 	
 	
