@@ -13,14 +13,13 @@ import java.util.Optional;
 @Component
 public class UserInfoUserDetailsService implements UserDetailsService {
 
-    @Autowired
-    private UserRepository repository;
+	@Autowired
+	private UserRepository repository;
 
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<UserData> userInfo = repository.findByFirstName(username);
-        return userInfo.map(UserInfoUserDetails::new)
-                .orElseThrow(() -> new UsernameNotFoundException("user not found " + username));
+	@Override
+	public UserData loadUserByUsername(String username) throws UsernameNotFoundException {
+		UserData userInfo = repository.findByEmail(username);
+		return (userInfo == null) ? null : userInfo;
 
-    }
+	}
 }

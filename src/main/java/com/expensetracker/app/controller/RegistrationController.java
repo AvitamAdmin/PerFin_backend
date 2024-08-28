@@ -1,6 +1,12 @@
 package com.expensetracker.app.controller;
 
+import java.util.Collections;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +26,6 @@ public class RegistrationController {
 	@PostMapping(value = "/register")
 	public String registerUser(@ModelAttribute UserData user) {
 		userService.registerUser(user);
-		return "success";
+		return "registration successful";
 	}
 }

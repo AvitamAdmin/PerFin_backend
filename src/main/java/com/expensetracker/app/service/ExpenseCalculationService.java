@@ -23,13 +23,13 @@ public class ExpenseCalculationService {
 	UserRepository userRepository;
 	UserTotalExpenseData userTotalExpenseData;
 
-	public void calculateTotalExpense(String category, double amount) {
+	public void calculateTotalExpense(String category, double amount, String email) {
 		userTotalExpenseData = new UserTotalExpenseData();
 		this.userTotalExpenseData.setCategory(category);
 		this.userTotalExpenseData.setAmount(amount);
 		this.userTotalExpenseData.setDate(LocalDate.now());
 		this.userTotalExpenseData.setExpenseCategoryData(expenseCategoryRepository.findByExpenseCategory(category));
-		this.userTotalExpenseData.setUserData(userRepository.findByEmail("hari@avitam.in"));
+		this.userTotalExpenseData.setUserData(userRepository.findByEmail(email));
 		// this.userTotalExpenseData.setUserData(userRepository.findByEmail(user.getEmail()));
 		modifyTotalExpenseDataRepository.save(userTotalExpenseData);
 	}
