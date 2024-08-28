@@ -1,5 +1,6 @@
 package com.expensetracker.app.filter;
 
+import com.expensetracker.app.dto.UserData;
 import com.expensetracker.app.service.*;
 import com.expensetracker.app.utility.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,15 +38,15 @@ public class JwtFilter extends OncePerRequestFilter  {
 		// TODO Auto-generated method stub
 		String authorization = httpServletRequest.getHeader("Authorization");
 		String token = null;
-		String userName = null;
+		String userEmail = null;
 
 		if (null != authorization && authorization.startsWith("Bearer ")) {
 			token = authorization.substring(7);
-			userName = jwtUtility.getUsernameFromToken(token);
+			userEmail = jwtUtility.getUseremailFromToken(token);
 		}
 
-		if (null != userName && SecurityContextHolder.getContext().getAuthentication() == null) {
-			UserDetails userDetails = userService.loadUserByUsername(userName);
+		if (null != userEmail && SecurityContextHolder.getContext().getAuthentication() == null) {
+			UserData userDetails = (UserData) userService.loadUserByUsername(userEmail);
 
 			if (jwtUtility.validateToken(token, userDetails)) {
 				UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(

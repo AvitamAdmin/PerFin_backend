@@ -24,7 +24,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "user")
-public class UserData // implements UserDetails
+public class UserData  implements UserDetails
 {
 	/**
 	 * 
@@ -154,6 +154,42 @@ public class UserData // implements UserDetails
 
 	public void setUserIncomeCategoryWiseDatum(List<UserExpenseCategoryWiseData> userIncomeCategoryWiseDatum) {
 		this.userIncomeCategoryWiseDatum = userIncomeCategoryWiseDatum;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 
 }

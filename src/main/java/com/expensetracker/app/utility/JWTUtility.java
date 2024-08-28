@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import com.expensetracker.app.dto.UserData;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
@@ -23,7 +25,7 @@ public class JWTUtility implements Serializable {
 	private String secretKey;
 
 	// retrieve username from jwt token
-	public String getUsernameFromToken(String token) {
+	public String getUseremailFromToken(String token) {
 		return getClaimFromToken(token, Claims::getSubject);
 	}
 
@@ -49,9 +51,9 @@ public class JWTUtility implements Serializable {
 	}
 
 	// generate token for user
-	public String generateToken(UserDetails userDetails) {
+	public String generateToken(UserData userDetails) {
 		Map<String, Object> claims = new HashMap<>();
-		return doGenerateToken(claims, userDetails.getUsername());
+		return doGenerateToken(claims, userDetails.getEmail());
 	}
 
 	// while creating the token -
@@ -64,8 +66,8 @@ public class JWTUtility implements Serializable {
 	}
 
 	// validate token
-	public boolean validateToken(String token, UserDetails userDetails) {
-		final String username = getUsernameFromToken(token);
-		return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+	public boolean validateToken(String token, UserData userDetails) {
+		final String useremail = getUseremailFromToken(token);
+		return (useremail.equals(userDetails.getEmail()) && !isTokenExpired(token));
 	}
 }

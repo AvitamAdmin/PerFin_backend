@@ -40,24 +40,24 @@ public class TestController {
 		System.out.println(user.getEmail());
 		return "testHome-vignesh-commit";
 	}
-	@GetMapping("/token")
-	public JwtResponse getToken() {
-		final UserDetails userDetails = userInfoUserDetailsService.loadUserByUsername("Model5");
-		final String token = jwtUtility.generateToken(userDetails);
-		return new JwtResponse(token);
-	}
+//	@GetMapping("/token")
+//	public JwtResponse getToken() {
+//		final UserData userDetails = (UserData) userInfoUserDetailsService.loadUserByUsername(jwtRequest.getUsername());
+//		final String token = jwtUtility.generateToken(userDetails);
+//		return new JwtResponse(token);
+//	}
 
 	@PostMapping("/authenticate")
 	public JwtResponse authenticate(@RequestBody JwtRequest jwtRequest) throws Exception {
 
 		try {
 			authenticationManager.authenticate(
-					new UsernamePasswordAuthenticationToken(jwtRequest.getUsername(), jwtRequest.getPassword()));
+					new UsernamePasswordAuthenticationToken(jwtRequest.getEmail(), jwtRequest.getPassword()));
 		} catch (BadCredentialsException e) {
 			throw new Exception("INVALID_CREDENTIALS", e);
 		}
 
-		final UserDetails userDetails = userInfoUserDetailsService.loadUserByUsername(jwtRequest.getUsername());
+		final UserData userDetails = userInfoUserDetailsService.loadUserByUsername(jwtRequest.getEmail());
 
 		final String token = jwtUtility.generateToken(userDetails);
 
